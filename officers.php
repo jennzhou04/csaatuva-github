@@ -32,9 +32,10 @@ while ($row=mysqli_fetch_array($result)) {
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="icon"  type="image/png" href="favicon.png" />
 	</head>
 	<body>
-	<link rel="shortcut icon" href="knot.png" >
+
 		<!-- Header -->
 			<header id="header">
 				<?php require('navigation.php'); ?>
@@ -47,19 +48,21 @@ while ($row=mysqli_fetch_array($result)) {
 				<h2>Officer Board</h2>
 				<p>2017 - 2018</p>
 			</section>
-			<section id="three" class="wrapper style1">
+			<section id="officer info" class="wrapper style1">
 				<div class="container">
 					<div id="replace"> </div>
 				</div>
 			</section>
 			<script>
-				var text = "will this work";
+				// this code is to insert into the div with id "replace"
+				
 				var data = <?php echo json_encode($data);?>;
 				var htmlbuilder = "";
 				
+				//these are formatted in the feature-grid
 				//EXEC BOARD
 				htmlbuilder+= '<header class="center"><p>Executive Board</p></header><div class="feature-grid">';
-				
+				//President
 				for(var i = 0; i < data.length; i++) {
 					if(data[i][5] == "President") {
 						htmlbuilder += '<div class="feature">';
@@ -79,6 +82,7 @@ while ($row=mysqli_fetch_array($result)) {
 					}
 					
 				}
+				//Vice President
 				for(var i = 0; i < data.length; i++) {
 					if(data[i][5] == "Vice President") {
 						htmlbuilder += '<div class="feature">';
@@ -98,7 +102,7 @@ while ($row=mysqli_fetch_array($result)) {
 					}
 					
 				}
-				
+				//Secretary
 				for(var i = 0; i < data.length; i++) {
 					if(data[i][5] == "Secretary") {
 						htmlbuilder += '<div class="feature">';
@@ -118,7 +122,7 @@ while ($row=mysqli_fetch_array($result)) {
 					}
 					
 				}
-				
+				//Treasurer
 				for(var i = 0; i < data.length; i++) {
 					if(data[i][5] == "Treasurer") {
 						htmlbuilder += '<div class="feature">';
@@ -151,7 +155,7 @@ while ($row=mysqli_fetch_array($result)) {
 						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
 						htmlbuilder += '<div class="content"><header><h4>';
 						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
+						htmlbuilder += '</h4><p style="text-transform: none;">';
 						htmlbuilder +=  data[i][1];
 						htmlbuilder += '</p><p>';	
 						htmlbuilder +=  data[i][2];
@@ -174,7 +178,7 @@ while ($row=mysqli_fetch_array($result)) {
 						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
 						htmlbuilder += '<div class="content"><header><h4>';
 						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
+						htmlbuilder += '</h4><p style="text-transform: none;">';
 						htmlbuilder +=  data[i][1];
 						htmlbuilder += '</p><p>';
 						htmlbuilder +=  data[i][2];
@@ -196,7 +200,7 @@ while ($row=mysqli_fetch_array($result)) {
 						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
 						htmlbuilder += '<div class="content"><header><h4>';
 						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
+						htmlbuilder += '</h4><p style="text-transform: none;">';
 						htmlbuilder +=  data[i][1];
 						htmlbuilder += '</p><p>';
 						htmlbuilder +=  data[i][2];
@@ -218,7 +222,7 @@ while ($row=mysqli_fetch_array($result)) {
 						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
 						htmlbuilder += '<div class="content"><header><h4>';
 						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
+						htmlbuilder += '</h4><p style="text-transform: none;">';
 						htmlbuilder +=  data[i][1];
 						htmlbuilder += '</p><p>';
 						htmlbuilder +=  data[i][2];
@@ -240,7 +244,7 @@ while ($row=mysqli_fetch_array($result)) {
 						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
 						htmlbuilder += '<div class="content"><header><h4>';
 						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
+						htmlbuilder += '</h4><p style="text-transform: none;">';
 						htmlbuilder +=  data[i][1];
 						htmlbuilder += '</p><p>';
 						htmlbuilder +=  data[i][2];
@@ -262,7 +266,7 @@ while ($row=mysqli_fetch_array($result)) {
 						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
 						htmlbuilder += '<div class="content"><header><h4>';
 						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
+						htmlbuilder += '</h4><p style="text-transform: none;">';
 						htmlbuilder +=  data[i][1];
 						htmlbuilder += '</p><p>';
 						htmlbuilder +=  data[i][2];
@@ -284,7 +288,7 @@ while ($row=mysqli_fetch_array($result)) {
 						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
 						htmlbuilder += '<div class="content"><header><h4>';
 						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
+						htmlbuilder += '</h4><p style="text-transform: none;">';
 						htmlbuilder +=  data[i][1];
 						htmlbuilder += '</p><p>';
 						htmlbuilder +=  data[i][2];
@@ -306,7 +310,7 @@ while ($row=mysqli_fetch_array($result)) {
 						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
 						htmlbuilder += '<div class="content"><header><h4>';
 						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
+						htmlbuilder += '</h4><p style="text-transform: none;">';
 						htmlbuilder +=  data[i][1];
 						htmlbuilder += '</p><p>';
 						htmlbuilder +=  data[i][2];
@@ -321,6 +325,7 @@ while ($row=mysqli_fetch_array($result)) {
 				htmlbuilder+= '</div>';
 				
 				//Advisors
+				//these are formatted in the adviser-grid
 				htmlbuilder+= '<header class="center"><p>Advisors</p></header><div class="advisor-grid">';
 				for(var i = 0; i < data.length; i++) {
 					if(data[i][5] == "Advisor") {
@@ -328,7 +333,7 @@ while ($row=mysqli_fetch_array($result)) {
 						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
 						htmlbuilder += '<div class="content"><header><h4>';
 						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
+						htmlbuilder += '</h4><p style="text-transform: none;">';
 						htmlbuilder +=  data[i][1];
 						htmlbuilder += '</p><p>';
 						htmlbuilder +=  data[i][2];
@@ -346,20 +351,7 @@ while ($row=mysqli_fetch_array($result)) {
 			</script>
 
 		<!-- Footer -->
-			<footer id="footer">
-				<div class="container">
-					<ul class="icons">
-						<li><a href="#" class="icon fa-facebook"></a></li>
-						<li><a href="#" class="icon fa-twitter"></a></li>
-						<li><a href="#" class="icon fa-instagram"></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; Untitled</li>
-						<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
-						<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
-					</ul>
-				</div>
-			</footer>
+			<? require 'footer.php';?>
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>

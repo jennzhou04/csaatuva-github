@@ -4,15 +4,18 @@
 	templated.co @templatedco
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
 	<head>
 		<title>Chinese Student Association</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<meta property="og:site_name" content="CSA at UVA"/>
+		<meta property="og:title" content="Chinese Student Association"/>
+		<meta property="og:image" content="http://www.csaatuva.com/previewimage.jpg" />
+		<link rel="icon"  type="image/png" href="favicon.png" />
 	</head>
 	<body class="landing">
-	<link rel="shortcut icon" href="knot.png" >
 		<!-- Header -->
 			<header id="header" class="alt">
 				<? require 'home-nav.php';?>
@@ -24,13 +27,6 @@
 			<section id="banner">
 				<h2>Chinese Student Association</h2>
 				<p>University Of Virginia </p>
-				<ul class="actions">
-					<!--li><a href="#" class="button special big">Get Started</a></li
-                    <li class=".page-scroll">
-                        <a href="#two" class="button special big">Get Started</a>
-                    </li>
-					-->
-				</ul>
 			</section>
 
 			<!-- One -->
@@ -51,8 +47,8 @@
 							<p>sign up for a family</p>
 						</header>
 						<ul class="actions" >
-							<li><a href="#" class="button special big" target="_blank">New Members</a></li>
-							<li><a href="#" class="button big" target="_blank">Returning Members</a></li>
+							<li><a href="https://goo.gl/forms/6o1Bm2WNYIwxVDpi2" class="button special big" target="_blank">New Members</a></li>
+							<li><a href="https://goo.gl/forms/NAImZtkJxDXzCIjJ2" class="button big" target="_blank">Returning Members</a></li>
 						</ul>
 					</div>
 				</section>
@@ -66,24 +62,31 @@
 						<div class="row 150%">
 							<div class="6u 12u$(xsmall)">
 								<div class="image fit captioned">
-									<img src="images/upcoming/up1.png" alt="" />
-									<h3>First General Body Meeting</h3>
+									<img src="images/upcoming/DDS.png" alt="" />
+									<h3>Dollar Dim Sum</h3>
 								</div>
 							</div>
 							<div class="6u$ 12u$(xsmall)">
 								<div class="image fit captioned">
-									<img src="images/china.jpg" alt="" />
-									<h3>Illum, maiores tempora cupid?</h3>
+									<img src="images/upcoming/more.png" alt="" />
+									<h3>Stay Tuned!</h3>
 								</div>
 							</div>
 						</div>
+					</div>
+				</section>
+			<!-- Three -->
+				<section id = "three" class= "wrapper">
+					<div class="container"  style="text-align:center;">
+						<header class="major">
+							<h2>Make a contribution</h2>
+							<p>we accept donations through paypal</p>
+						</header>
 						<ul class="actions">
-							<li><a href="#" class="button special big">Nulla luctus</a></li>
-							<li><a href="#" class="button big">Sed vulputate</a></li>
+							<li><a href="#" class="button">Donate</a></li>
 						</ul>
 					</div>
 				</section>
-
 			<!-- Four -->
 				<section id="four" class="wrapper style3 special">
 					<div class="container">
@@ -92,28 +95,16 @@
 							<p>UVA Emails only</p>
 						</header>
 						<ul class="actions">
-							<li><a href="#" class="button special big">Sign-up</a></li>
+							<li><a href="https://goo.gl/forms/oJnobf1yXGz1vtiD3" class="button fit alt small" target="_blank">Sign-up</a></li>
 						</ul>
 					</div>
 				</section>
 
 		<!-- Footer -->
-			<footer id="footer">
-				<div class="container">
-					<ul class="icons">
-						<li><a href="#" class="icon fa-facebook"></a></li>
-						<li><a href="#" class="icon fa-twitter"></a></li>
-						<li><a href="#" class="icon fa-instagram"></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; Untitled</li>
-						<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
-						<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
-					</ul>
-				</div>
-			</footer>
+			<? require 'footer.php';?>
 
 		<!-- Scripts -->
+		    
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>

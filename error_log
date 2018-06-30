@@ -1,0 +1,4 @@
+[15-Aug-2017 20:52:13 America/Chicago] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/csaatuva/public_html/includes/mysqli_connect.php on line 9
+[15-Aug-2017 20:52:23 America/Chicago] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/csaatuva/public_html/includes/mysqli_connect.php on line 9
+[15-Aug-2017 20:53:49 America/Chicago] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/csaatuva/public_html/includes/mysqli_connect.php on line 9
+[15-Aug-2017 20:53:53 America/Chicago] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/csaatuva/public_html/includes/mysqli_connect.php on line 9

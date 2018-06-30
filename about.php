@@ -12,9 +12,10 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="icon"  type="image/png" href="favicon.png" />
 	</head>
 	<body>
-	<link rel="shortcut icon" href="knot.png" >
+	<link rel="shortcut icon" href="favicon.png" >
 		<!-- Header -->
 			<header id="header">
 				<?php require('navigation.php'); ?>
@@ -22,73 +23,13 @@
 			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 
 		<!-- Main -->
-			<section id="main" class="wrapper">
-				<div class="container">
-								
+			<section id="about">
 					<header class="major special">
 						<h2>About CSA</h2>
 						<p>The Chinese Student Association at the University of Virginia</p>
 					</header>
-		<!-- Slideshow -->
-		 <div class="slideshow-container">
-		  <div class="mySlides fade">
-			<div class="numbertext">1 / 3</div>
-			<img src="slideshow/img1.jpg" style="width:100%">
-			<div class="text">Why won't this work</div>
-		  </div>
-
-		  <div class="mySlides fade">
-			<div class="numbertext">2 / 3</div>
-			<img src="slideshow/img2.jpg" style="width:100%">
-			<div class="text">Caption Two</div>
-		  </div>
-
-		  <div class="mySlides fade">
-			<div class="numbertext">3 / 3</div>
-			<img src="slideshow/img3.jpg" style="width:100%">
-			<div class="text">Caption Three</div>
-		  </div>
-
-		  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-		  <a class="next" onclick="plusSlides(1)">&#10095;</a>
-		</div>
-		<br>
-
-		<div style="text-align:center">
-		  <span class="dot" onclick="currentSlide(1)"></span>
-		  <span class="dot" onclick="currentSlide(2)"></span>
-		  <span class="dot" onclick="currentSlide(3)"></span>
-		</div> 
-		
-		<script>
-			var slideIndex = 1;
-			showSlides(slideIndex);
-
-			function plusSlides(n) {
-			  showSlides(slideIndex += n);
-			}
-
-			function currentSlide(n) {
-			  showSlides(slideIndex = n);
-			}
-
-			function showSlides(n) {
-			  var i;
-			  var slides = document.getElementsByClassName("mySlides");
-			  var dots = document.getElementsByClassName("dot");
-			  if (n > slides.length) {slideIndex = 1}    
-			  if (n < 1) {slideIndex = slides.length}
-			  for (i = 0; i < slides.length; i++) {
-				  slides[i].style.display = "none";  
-			  }
-			  for (i = 0; i < dots.length; i++) {
-				  dots[i].className = dots[i].className.replace(" active", "");
-			  }
-			  slides[slideIndex-1].style.display = "block";  
-			  dots[slideIndex-1].className += " active";
-			}
-		</script>
-		<section id="one" class="wrapper style1">
+			</section>
+			<section id="one" class="wrapper style1">
 					<div class="container">
 						<div class="row 200%">
 							<div class="4u 12u$(small)">
@@ -123,11 +64,13 @@
 							<p>Sign up below!</p>
 						</header>
 						<ul class="actions" >
-							<li><a href="#" class="button special big" target="_blank">New Members</a></li>
-							<li><a href="#" class="button big" target="_blank">Returning Members</a></li>
+							<li><a href="https://goo.gl/forms/6o1Bm2WNYIwxVDpi2" class="button special big" target="_blank">New Members</a></li>
+							<li><a href="https://goo.gl/forms/NAImZtkJxDXzCIjJ2" class="button big" target="_blank">Returning Members</a></li>
 						</ul>
 					</div>
 				</section>
+			<section id="info" class="wrapper style2" >
+				<div class="container">
 					<p>The main goal of the Chinese Student Association at the University of Virginia is to create an atmosphere where Chinese, Chinese-Americans, and all those interested in Chinese culture can come together. From organizing small get-togethers to large-scale events integrated with college and community life, CSA allows students to meet others to whom they can relate in various community, cultural, and social settings. As an awareness and promoting organization, CSA also addresses and discusses issues concerning Chinese and Chinese-Americans as students and as a community.</p>
 					<p>While CSA is devoted to Chinese culture and community within the University, it welcomes and encourages people of all ages, races, and backgrounds to participate in, contribute to, and become part of the organization.</p>
 					<p>Although this organization has members who are University of Virginia students and may have University employees associated or engaged in its activities and affairs, the organization is not a part of or an agency of the University. It is a separate and independent organization which is responsible for and manages its own activities and affairs. The University does not direct, supervise or control the organization and is not responsible for the organization’s contracts, acts or omissions.</p>
@@ -136,20 +79,7 @@
 			</section>
 
 		<!-- Footer -->
-			<footer id="footer">
-				<div class="container">
-					<ul class="icons">
-						<li><a href="https://www.facebook.com/csa.uva/" class="icon fa-facebook"></a></li>
-						<li><a href="#" class="icon fa-youtube"></a></li>
-						<li><a href="#" class="icon fa-instagram"></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; Untitled</li>
-						<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
-						<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
-					</ul>
-				</div>
-			</footer>
+			<? require 'footer.php';?>
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
