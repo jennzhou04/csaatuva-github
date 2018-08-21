@@ -5,44 +5,32 @@
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
 <?php
+$toRoot = './';
+$currentPage = 'officers';
+include($toRoot.'_header.php');
 require('includes/mysqli_connect.php');
+include('chromephp/ChromePhp.php');
 $count = 0;
 $sql = "SELECT * FROM 1718officers";
 $result = mysqli_query($conn, $sql)
 or die("Error: ".mysqli_error($conn));
+ChromePhp::log($result);
 
-while ($row=mysqli_fetch_array($result)) {
-	$id = $row['id']; 
-	$name = $row['name']; 
-	$year = $row['year'];
-	$major = $row['major']; 
-	$description = $row['description'];
-	$image = $row['image']; 
-	$title = $row['title'];
-	if ($id > 0) {
-		$data[$count] = array($name, $year, $major, $description, $image, $title);
-		$count = $count + 1;
-	}
-}
-
+// while ($row=mysqli_fetch_array($result)) {
+// 	$id = $row['id']; 
+// 	$name = $row['name']; 
+// 	$year = $row['year'];
+// 	$major = $row['major']; 
+// 	$description = $row['description'];
+// 	$image = $row['image']; 
+// 	$title = $row['title'];
+// 	if ($id > 0) {
+// 		$data[$count] = array($name, $year, $major, $description, $image, $title);
+// 		$count = $count + 1;
+// 	}
+// }
+// ChromePhp::log($data);
 ?>
-<html>
-	<head>
-		<title>Officers</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="icon"  type="image/png" href="favicon.png" />
-	</head>
-	<body>
-
-		<!-- Header -->
-			<header id="header">
-				<?php require('navigation.php'); ?>
-			</header>
-
-			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-
 		<!-- Main -->
 			<section id="officer">
 				<h2>Officer Board</h2>
@@ -53,6 +41,137 @@ while ($row=mysqli_fetch_array($result)) {
 					<div id="replace"> </div>
 				</div>
 			</section>
+			<?php 
+
+			$EXEC = '<header class="center"><p>Executive Board</p></header><div class="feature-grid">';
+			$community = '<header class="center"><p>Community</p></header><div class="feature-grid">';
+			$culture = '<header class="center"><p>Culture</p></header><div class="feature-grid">';
+			$fundraising = '<header class="center"><p>Fundraising</p></header><div class="feature-grid">';
+			$historic = '<header class="center"><p>Historic</p></header><div class="feature-grid">';
+			$publicity = '<header class="center"><p>Publicity</p></header><div class="feature-grid">';
+			$social = '<header class="center"><p>Social</p></header><div class="feature-grid">';
+			$sports = '<header class="center"><p>Sports</p></header><div class="feature-grid">';
+			$headAdvisors = '<header class="center"><p>Head Advisors</p></header><div class="feature-grid">';
+			$advisors = '<header class="center"><p>Advisors</p></header><div class="feature-grid">';
+			while ($row=mysqli_fetch_array($result)) {
+				if($row['title']=="President") {
+					$pres = '<div class="feature"><div class="image rounded"><img src="';
+					$pres .= $row['image'];
+					$pres .= '" alt="" /></div><div class="content"><header><h4>';
+					$pres .= $row['name'];
+					$pres .= '<span style="font-style:italic;font-size: .8em;font-weight:500;text-transform:none;"> - ';
+					$pres .= $row['year'];
+					$pres .= '</span></h4><p>';
+					$pres .= $row['title'];
+					$pres .= '</p><p>';
+					$pres .= $row['major'];
+					$pres .= '</p></header><p>';
+					$pres .= $row['description'];
+					$pres .= '</o></div></div>';
+				}
+				elseif($row['title']=="Vice President") {
+					$vice = '<div class="feature"><div class="image rounded"><img src="';
+					$vice .= $row['image'];
+					$vice .= '" alt="" /></div><div class="content"><header><h4>';
+					$vice .= $row['name'];
+					$vice .= '<span style="font-style:italic;font-size: .8em;font-weight:500;text-transform:none;"> - ';
+					$vice .= $row['year'];
+					$vice .= '</span></h4><p>';
+					$vice .= $row['title'];
+					$vice .= '</p><p>';
+					$vice .= $row['major'];
+					$vice .= '</p></header><p>';
+					$vice .= $row['description'];
+					$vice .= '</o></div></div>';
+				}
+				elseif($row['title']=="Secretary") {
+					$sec = '<div class="feature"><div class="image rounded"><img src="';
+					$sec .= $row['image'];
+					$sec .= '" alt="" /></div><div class="content"><header><h4>';
+					$sec .= $row['name'];
+					$sec .= '<span style="font-style:italic;font-size: .8em;font-weight:500;text-transform:none;"> - ';
+					$sec .= $row['year'];
+					$sec .= '</span></h4><p>';
+					$sec .= $row['title'];
+					$sec .= '</p><p>';
+					$sec .= $row['major'];
+					$sec .= '</p></header><p>';
+					$sec .= $row['description'];
+					$sec .= '</o></div></div>';
+				}
+				elseif($row['title']=="Treasurer") {
+					$tres = '<div class="feature"><div class="image rounded"><img src="';
+					$tres .= $row['image'];
+					$tres .= '" alt="" /></div><div class="content"><header><h4>';
+					$tres .= $row['name'];
+					$tres .= '<span style="font-style:italic;font-size: .8em;font-weight:500;text-transform:none;"> - ';
+					$tres .= $row['year'];
+					$tres .= '</span></h4><p>';
+					$tres .= $row['title'];
+					$tres .= '</p><p>';
+					$tres .= $row['major'];
+					$tres .= '</p></header><p>';
+					$tres .= $row['description'];
+					$tres .= '</o></div></div>';
+				}
+				// $id = $row['id']; 
+				// $name = $row['name']; 
+				// $year = $row['year'];
+				// $major = $row['major']; 
+				// $description = $row['description'];
+				// $image = $row['image']; 
+				// $title = $row['title'];
+				// if ($id > 0) {
+				// 	$data[$count] = array($name, $year, $major, $description, $image, $title);
+				// 	$count = $count + 1;
+				// }
+			}
+			$EXEC .= $pres . $vice . $sec . $tres . '</div>';
+			echo $EXEC;
+			?>
+			<header class="center"><p>Executive Board</p></header>
+			<div class="officer-grid">
+				<div class="officer">
+					<div class="circle-crop">
+						<img src="images/officers/JenniferZhou.jpg" alt="Jenn"/>
+					</div>
+					<div class="content">
+						<header>
+							<h4>Jennifer Zhou</h4>
+							<p>Treasurer</p>
+							<p>Computer Science<span> - 3rd Year</span></p>
+						</header>
+						<p>Something funny</p>
+					</div>
+				</div>
+				<div class="officer">
+					<div class="circle-crop">
+						<img src="images/officers/JenniferZhou.jpg" alt="Jenn"/>
+					</div>
+					<div class="content">
+						<header>
+							<h4>Jennifer Zhou</h4>
+							<p>Treasurer</p>
+							<p>Computer Science<span> - 3rd Year</span></p>
+						</header>
+						<p>Something funny</p>
+					</div>
+				</div>
+				<div class="officer">
+					<div class="circle-crop">
+						<img src="images/officers/JenniferZhou.jpg" alt="Jenn"/>
+					</div>
+					<div class="content">
+						<header>
+							<h4>Jennifer Zhou<span> - 3rd Year</span></h4>
+							<p>Treasurer</p>
+							<p>Computer Science</p>
+						</header>
+						<p>Something funny</p>
+					</div>
+				</div>
+			</div>
+			
 			<script>
 				// this code is to insert into the div with id "replace"
 				
@@ -351,13 +470,4 @@ while ($row=mysqli_fetch_array($result)) {
 			</script>
 
 		<!-- Footer -->
-			<? require 'footer.php';?>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
-</html>
+			<?php include('footer.php');?>

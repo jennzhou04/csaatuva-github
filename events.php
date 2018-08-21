@@ -1,6 +1,10 @@
 <!DOCTYPE HTML>
 
 <?php
+$toRoot = './';
+$currentPage = 'events';
+include($toRoot.'_header.php');
+
 //create connection to database
 require('includes/mysqli_connect.php');
 $count = 0;
@@ -49,22 +53,6 @@ while ($row=mysqli_fetch_array($result)) {
 
 }
 ?>
-
-
-<html>
-	<head>
-		<title>Events</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="icon"  type="image/png" href="favicon.png" />
-	</head>
-	<body>
-		<!-- Header -->
-			<header id="header">
-				<?php require('navigation.php'); ?>
-			</header>
-			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 
 		<!-- Main -->
 			<section id="main" class="wrapper">
@@ -127,12 +115,3 @@ while ($row=mysqli_fetch_array($result)) {
 			
 		<!-- Footer -->
 			<? require 'footer.php';?>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
-</html>

@@ -1,32 +1,30 @@
-<!DOCTYPE HTML>
-<!--
-	Spatial by TEMPLATED
-	templated.co @templatedco
-	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
--->
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
-	<head>
-		<title>Chinese Student Association</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<meta property="og:site_name" content="CSA at UVA"/>
-		<meta property="og:title" content="Chinese Student Association"/>
-		<meta property="og:image" content="http://www.csaatuva.com/previewimage.jpg" />
-		<link rel="icon"  type="image/png" href="favicon.png" />
-	</head>
-	<body class="landing">
-		<!-- Header -->
-			<header id="header" class="alt">
-				<? require 'home-nav.php';?>
-			</header>
-
-			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-
+<?php 
+$toRoot = './';
+$currentPage = 'index';
+include($toRoot.'_header_alt.php');
+?>
 		<!-- Banner -->
-			<section id="banner">
+			<!-- <section id="banner">
 				<h2>Chinese Student Association</h2>
 				<p>University Of Virginia </p>
+			</section> -->
+			<section id="banner">
+				<div class="inner">
+					<!-- <p>Data Visualization • Data Management • Custom Applications</p>
+					<ul class="actions special">
+						<li><a href="#about" class="button medium wide scrolly-middle">About Us</a></li>
+					</ul> -->
+					<h1>Chinese Student Association</h1>
+					<h4>University Of Virginia </h4>
+					<div class="knot-logo"><?php include('assets/knot-logo.svg')?></div>
+				</div>
+				<!-- <div class="half-banner">
+					<h4>University Of Virginia </h4>
+				</div> -->
+				</div>
+				<svg class="line">
+					<line x1="0" y1="0" x2="0" y2="400" style="stroke:rgb(255,255,255);stroke-width:5" />
+				</svg>
 			</section>
 
 			<!-- One -->
@@ -101,14 +99,4 @@
 				</section>
 
 		<!-- Footer -->
-			<? require 'footer.php';?>
-
-		<!-- Scripts -->
-		    
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
-</html>
+			<?php include($toRoot.'footer.php');?>

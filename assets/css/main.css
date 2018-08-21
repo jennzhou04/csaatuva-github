@@ -1,8 +1,5 @@
 @import url(font-awesome.min.css);
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,700);
-@import url('https://fonts.googleapis.com/css?family=Raleway');
-@import url('https://fonts.googleapis.com/css?family=Quicksand:500');
-@import url('https://fonts.googleapis.com/css?family=Quicksand');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Quicksand:400,500,700');
 
 /*
 	Spatial by TEMPLATED
@@ -1606,16 +1603,20 @@
 	}
 
 	body, input, select, textarea {
-		font-family: 'Raleway', Arial, Helvetica, STXihei, "华文细黑", "Microsoft Yahei","微软雅黑", sans-serif;
+		font-family: 'Open Sans', Arial, Helvetica, STXihei, "华文细黑", "Microsoft Yahei","微软雅黑", sans-serif;
 		font-size: 13pt;
-		font-weight: 400;
+		font-weight: 600;
 		line-height: 2em;
 	}
 	h1 {
-		font-family: "Quicksand", Arial, STXihei, "华文细黑", "Microsoft Yahei","微软雅黑", sans-serif;
+		font-family: "Open Sans", Arial, STXihei, "华文细黑", "Microsoft Yahei","微软雅黑", sans-serif;
+		font-weight: 700;
+		letter-spacing: 2px;
 	}
 	h2 {
-		font-family: "Quicksand", Arial, STXihei, "华文细黑", "Microsoft Yahei","微软雅黑", sans-serif;
+		font-family: "Open Sans", Arial, STXihei, "华文细黑", "Microsoft Yahei","微软雅黑", sans-serif;
+		font-weight: 500;
+		letter-spacing: 2px;
 	}
 
 		@media screen and (max-width: 1680px) {
@@ -1660,7 +1661,8 @@
 
 	a {
 		text-decoration: underline;
-		color: #f32853;
+		/* color: #f32853; */
+		color: rgb(52, 85, 148);
 	}
 
 		a:hover {
@@ -2207,6 +2209,69 @@
 			}
 
 		}
+/* Officers */
+	.officer-grid {
+		display: flex;
+		margin: 0 10em;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	.officer-grid .officer {
+		display: inherit;
+		flex-grow: 1;
+		flex-basis: 50%;
+		justify-content: flex-start;
+		align-items: center;
+		margin-bottom: 2em;
+		padding: 0 0 0 2em;
+	}
+		.officer-grid .officer:nth-of-type(odd) {
+			flex-direction: row-reverse;
+			padding: 0 2em 0 0;
+		}
+		.officer:nth-last-child(1):nth-child(odd) {
+			flex-grow: 0;
+			justify-content: flex-start;
+			/* align-items: flex-start; */
+			align-self: start;
+			align-content: flex-start;
+		}
+			.officer-grid .circle-crop {
+				width: 15em;
+				height: 15em;
+				border-radius: 50%;
+				position: relative;
+				margin: 0 2em;
+				overflow: hidden;
+			}
+			.officer-grid .circle-crop img {
+				width: auto;
+				height: 100%;
+				/* overflow: hidden; */
+				/* border-radius: 100%; */
+				display: inline;
+				margin: 0 auto;
+			}
+		.officer-grid .content {
+			display: flex;
+			flex-direction: column;
+		}		
+			.officer-grid .content > * {
+				/* align-self: flex-end; */
+				/* justify-content: flex-end; */
+				align-items: flex-end;
+				display: flex;
+				flex-direction: column;
+			}		
+				.officer-grid .officer:nth-of-type(even) .content > * {
+					align-items: flex-start;
+				}
+				.officer-grid .officer .content span {
+					font-style:italic;
+					font-size: .8em;
+					font-weight:500;
+					text-transform:none;
+				}
 		
 /* Feature */
 
@@ -2229,6 +2294,13 @@
 
 			.feature-grid .feature .content {
 				width: 60%;
+			}
+
+			.feature-grid .feature .content span {
+				font-style:italic;
+				font-size: .8em;
+				font-weight:500;
+				text-transform:none;
 			}
 
 			.feature-grid .feature .image {
@@ -2347,7 +2419,7 @@
 					display: inline;
 					max-width: 100%;
 				}
-			.advisor-grid .advisor: .content, .advisor-grid .advisor: .image {
+			.advisor-grid .advisor > .content, .advisor-grid .advisor > .image {
 				float: none;
 				margin-right: 5%;
 				text-align: center;
@@ -3628,7 +3700,7 @@
 	#banner {
 		padding: 16em 0 13em 0;
 		background-attachment: fixed;
-		background-image: url("images/overlay.png"), url("../../images/home.jpg");
+		/* background-image: url("images/overlay.png"), url("../../images/home.jpg"); */
 		background-position: center top;
 		background-size: cover;
 		line-height: 1.75;
