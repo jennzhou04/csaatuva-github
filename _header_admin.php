@@ -1,5 +1,11 @@
 <!DOCTYPE HTML>
-<?php include($toRoot.'loadFromDatabase.php'); ?>
+<?php require_once($toRoot.'loadFromDatabase.php'); ?>
+<?php
+if (!isLoggedIn()) {
+	$_SESSION['msg'] = "You must log in first";
+	header('location: ../login.php');
+}
+?>
 <!--
 	Spatial by TEMPLATED
 	templated.co @templatedco
@@ -30,7 +36,12 @@
                     <li><a href="<?php echo $toRoot; ?>admin/index.php">Home</a></li>
                     <li><a href="<?php echo $toRoot; ?>admin/officers.php">Officers</a></li>
                     <li><a href="<?php echo $toRoot; ?>admin/events.php">Events</a></li>
-                    <li><a href="<?php echo $toRoot; ?>admin/gallery.php">Gallery</a></li>
+					<li><a href="<?php echo $toRoot; ?>admin/gallery.php">Gallery</a></li>
+					<li>
+						<form action="../" method="get">
+							<input type=submit value="Logout" name="logout" />
+						</form>
+					</li>
                 </ul>
             </nav>
 			</header>

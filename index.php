@@ -16,15 +16,15 @@ include($toRoot.'_header_alt.php');
 					</ul> -->
 					<h1>Chinese Student Association</h1>
 					<h4>University Of Virginia </h4>
-					<div class="knot-logo"><?php include('assets/knot-logo.svg')?></div>
+					<!-- <div class="knot-logo"><?php include('assets/knot-logo.svg')?></div> -->
 				</div>
 				<!-- <div class="half-banner">
 					<h4>University Of Virginia </h4>
 				</div> -->
 				</div>
-				<svg class="line">
+				<!-- <svg class="line">
 					<line x1="0" y1="0" x2="0" y2="400" style="stroke:rgb(255,255,255);stroke-width:5" />
-				</svg>
+				</svg> -->
 			</section>
 
 			<!-- One -->
@@ -58,7 +58,37 @@ include($toRoot.'_header_alt.php');
 							<h2>Upcoming events</h2>
 						</header>
 						<div class="row 150%">
-							<div class="6u 12u$(xsmall)">
+							<?php
+							require($toRoot.'includes/mysqli_connect.php');
+							$now = date('Y-m-d');
+                            $upcoming = [];
+                            $sql = "SELECT * FROM events ORDER BY date DESC LIMIT 2 WHERE date > TIMESTAMP('$now')";
+                            $result = $conn->query($sql);
+                            if (!empty($result) && $result->num_rows > 0) {
+                                // output data of each row
+                                // $roles = $result->fetch_assoc();
+                                while($row = $result->fetch_assoc()) {
+                                    array_push($upcoming, $row);
+                                }
+                            } else {
+                                // echo "0 results";
+                            }
+							$conn->close();
+							
+							if(empty($upcoming)) {
+								echo '<div class="6u 12u$(xsmall)"><div class="image square captioned">';
+								echo '<img src="images/upcoming/more.png" />';
+								echo '<h3>Stay Tuned!</h3></div></div>';
+							} else {
+								foreach($upcoming as $event) {
+									echo '<div class="6u 12u$(xsmall)"><div class="image square captioned">';
+									echo '<img src="'.$event['image'].'" />';
+									echo '<h3>'.$event['event'].'</h3></div></div>';
+								}
+							}
+							
+							?>
+							<!-- <div class="6u 12u$(xsmall)">
 								<div class="image fit captioned">
 									<img src="images/upcoming/DDS.png" alt="" />
 									<h3>Dollar Dim Sum</h3>
@@ -69,7 +99,7 @@ include($toRoot.'_header_alt.php');
 									<img src="images/upcoming/more.png" alt="" />
 									<h3>Stay Tuned!</h3>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</section>

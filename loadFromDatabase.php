@@ -61,7 +61,7 @@ function register(){
 			$logged_in_user_id = mysqli_insert_id($db);
 
 			$_SESSION['user'] = getUserById($logged_in_user_id); // put logged in user in session
-			$_SESSION['success']  = "You are now logged in";
+			$_SESSION['success']  = "";
 			header('location: index.php');				
 		}
 	}
@@ -142,11 +142,11 @@ function login(){
 			if ($logged_in_user['user_type'] == 'admin') {
 
 				$_SESSION['user'] = $logged_in_user;
-				$_SESSION['success']  = "You are now logged in";
+				$_SESSION['success']  = "";
 				header('location: admin/index.php');		  
 			}else{
 				$_SESSION['user'] = $logged_in_user;
-				$_SESSION['success']  = "You are now logged in";
+				$_SESSION['success']  = "";
 
 				header('location: index.php');
 			}
@@ -155,4 +155,6 @@ function login(){
 		}
 	}
 }
+
+?>
 

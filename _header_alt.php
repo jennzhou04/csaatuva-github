@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<?php include($toRoot.'loadFromDatabase.php'); ?>
+<?php require_once($toRoot.'loadFromDatabase.php'); ?>
 <!--
 	Spatial by TEMPLATED
 	templated.co @templatedco
@@ -33,7 +33,11 @@
 				</h3>
 			</div>
 		<?php endif ?>
-			<h1>CSA<span>AT</span>UVA</h1>
+			<!-- <h1>CSA<span>AT</span>UVA</h1> -->
+			<div class="header-logo">
+				<?php include('assets/knot-logo.svg'); ?>
+			</div>
+			
 			<nav id="nav">
 				<ul>
 					<li><a href="<?php echo $toRoot; ?>index.php" class="hidden"><img src="images/header.png" alt="" style="width:75%;height:auto;"></a></a></li>

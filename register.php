@@ -1,4 +1,4 @@
-<?php include('loadFromDatabase.php') ?>
+<?php require_once('loadFromDatabase.php') ?>
 <!DOCTYPE html>
 <html>
 <head>

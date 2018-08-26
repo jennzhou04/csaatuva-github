@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<?php include($toRoot.'loadFromDatabase.php'); ?>
+<?php require_once($toRoot.'loadFromDatabase.php'); ?>
 <!--
 	Spatial by TEMPLATED
 	templated.co @templatedco

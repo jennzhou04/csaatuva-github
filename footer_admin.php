@@ -2,7 +2,7 @@
 			<div class="container">
 				<ul class="copyright">
 					<li>&copy; 2017 Jennifer Zhou</li>
-					<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+					<li><a href="../login.php">Login</a></li>
 				</ul>
 			</div>
 		</footer>

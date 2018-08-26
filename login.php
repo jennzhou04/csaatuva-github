@@ -1,32 +1,36 @@
-<?php include('loadFromDatabase.php') ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Registration system PHP and MySQL</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-	<div class="header">
-		<h2>Login</h2>
+<?php 
+$toRoot='./';
+$currentPage='login';
+include($toRoot.'_header.php');
+require_once('loadFromDatabase.php');
+?>
+
+<div class="wrapper">
+	<div class="container">
+		<div class="header">
+			<h2>Login</h2>
+		</div>
+		
+		<form method="post" action="login.php">
+
+			<?php echo display_error(); ?>
+			<div class="row uniform 50%">
+			<div class="6u$">
+				<label>Username</label>
+				<input type="text" name="username" >
+			</div>
+			<div class="6u$">
+				<label>Password</label>
+				<input type="password" name="password">
+			</div>
+			<div class="6u$">
+				<button type="submit" class="btn" name="login_btn">Login</button>
+			</div>
+			</div>
+		</form>
+		
 	</div>
-	<form method="post" action="login.php">
+</div>
 
-		<?php echo display_error(); ?>
 
-		<div class="input-group">
-			<label>Username</label>
-			<input type="text" name="username" >
-		</div>
-		<div class="input-group">
-			<label>Password</label>
-			<input type="password" name="password">
-		</div>
-		<div class="input-group">
-			<button type="submit" class="btn" name="login_btn">Login</button>
-		</div>
-		<!-- <p>
-			Not yet a member? <a href="register.php">Sign up</a>
-		</p> -->
-	</form>
-</body>
-</html>
+<?php include($toRoot.'footer.php') ?>
