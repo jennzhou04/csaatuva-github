@@ -2,62 +2,25 @@
 $toRoot = '../';
 $currentPage = 'officers';
 include($toRoot.'_header_admin.php');
-$currentYear = date('Y');
+
+// ChromePhp::log($_POST['year']);
+if(isset($_POST['year'])) {
+    $currentYear = $_POST['year'];
+} else {
+    $currentYear = date('Y');
+}
+
+
 ?>
 
 
 <div class="wrapper">
     <div class="container">
-        <div class="12u$">
-            <form id="selectYear" method="post">
-                <div class="2u 12u$(small)">
-                <div class="select-wrapper">        
-                    <select name="year" id="year">
-                        <?php 
-                        require($toRoot.'includes/mysqli_connect.php');
-                        $sql = "SELECT year(created) FROM officers o GROUP BY YEAR(o.created) DESC";
-                        $result = $conn->query($sql);
-                        $years = [];
-                    
-                        if ($result->num_rows > 0) {
-                            // output data of each row
-                            
-                            while($row = $result->fetch_assoc()) {
-                                array_push($years, $row);
-                            }
-                        } else {
-                            echo "0 results";
-                        }
-                    
-                        $conn->close();
-
-                        foreach($years as $year) {
-                            echo '<option';
-                            if($currentYear == $year['year(created)']) {
-                                echo ' selected';
-                            }
-                            echo ' value="'.$year['year(created)'].'">'.$year['year(created)'].'</option>';
-                        }
-                        ?>
-                    </select>
-                    </div>
-                    <div class="2u 12u$(small)">
-                        <input type="submit" value="Submit" class="special" name="selectYear_btn"/>
-                    </div>
-                </div>    
-            </form>
-            
-        </div>
-        <?php
-        if(isset($_POST['selectYear_btn'])) {
-            $currentYear = $_POST['year'];
-        }
-        ?>
         
     <section>
     <?php
     require($toRoot.'includes/mysqli_connect.php');
-    $sql = "SELECT * FROM officers WHERE YEAR(created) = $currentYear";
+    $sql = "SELECT * FROM officers WHERE YEAR(created) = '$currentYear'";
     $result = $conn->query($sql);
     $officers = [];
 
@@ -75,12 +38,60 @@ $currentYear = date('Y');
     ?>
     <span class="add">Add Officer <i class="fas fa-user-circle"></i></span>
         <h1>Officer Board</h1>
+
+        <div class="12u$">
+            <form id="selectYear" method="post">
+                <div class="select-year">
+                    <div class="select-wrapper 2u 12u$(small)">        
+                    <select name="year" id="year">
+                        <?php 
+                        require($toRoot.'includes/mysqli_connect.php');
+                        $sql = "SELECT year(created) year FROM officers o GROUP BY YEAR(o.created) DESC";
+                        $result = $conn->query($sql);
+                        $years = [];
+                    
+                        if ($result->num_rows > 0) {
+                            // output data of each row
+                            
+                            while($row = $result->fetch_assoc()) {
+                                array_push($years, $row);
+                            }
+                        } else {
+                            echo "0 results";
+                        }
+                    
+                        $conn->close();
+
+                        foreach($years as $year) {
+                            echo '<option';
+                            if($currentYear == $year['year']) {
+                                echo ' selected';
+                            }
+                            $toYear = DateTime::createFromFormat('Y', $year['year'])->modify('+1 year')->format('Y');
+                            echo ' value="'.$year['year'].'">'.$year['year']."-".$toYear.'</option>';
+                        }
+                        ?>
+                    </select>
+                    </div>
+                    <input type="submit" value="Update" class="small" name="selectYear_btn"/>
+                </div>  
+            </form>
+        </div>
+
+        <?php
+        if(isset($_POST['selectYear_btn'])) {
+            $currentYear = $_POST['year'];
+        }
+        ?>
         
         <h3>Exec</h3>
+        <!-- <label for="exec">Exec</label> -->
         <div class="officers">
             <?php
+            // include('../chromephp/ChromePhp.php');
             require($toRoot.'includes/mysqli_connect.php');
-            $sql = "SELECT * FROM officers WHERE title='President' OR title='Vice President' OR title='Secretary' OR title='Treasurer'";
+            $sql = "SELECT * FROM officers WHERE YEAR(created) = '$currentYear' 
+            AND (title='President' OR title='Vice President' OR title='Secretary' OR title='Treasurer')";
             $result = $conn->query($sql);
             $exec = [];
             
@@ -106,10 +117,18 @@ $currentYear = date('Y');
             }            
             $conn->close();
 
-            array_push($exec, $p);
-            array_push($exec, $vp);
-            array_push($exec, $t);
-            array_push($exec, $s);
+            if(!empty($p)) {
+                array_push($exec, $p);
+            }
+            if(!empty($vp)) {
+                array_push($exec, $vp);
+            }
+            if(!empty($t)) {
+                array_push($exec, $t);
+            }
+            if(!empty($s)) {
+                array_push($exec, $s);
+            }
 
             foreach($exec as $officer) {
                 echo '<div class="officer-display">';
@@ -126,7 +145,7 @@ $currentYear = date('Y');
         <div class="officers">
             <?php
             require($toRoot.'includes/mysqli_connect.php');
-            $sql = "SELECT * FROM officers WHERE title='Community'";
+            $sql = "SELECT * FROM officers WHERE YEAR(created) = '$currentYear' AND title='Community'";
             $result = $conn->query($sql);
             $community = [];
             
@@ -154,7 +173,7 @@ $currentYear = date('Y');
         <div class="officers">
             <?php
             require($toRoot.'includes/mysqli_connect.php');
-            $sql = "SELECT * FROM officers WHERE title='Culture'";
+            $sql = "SELECT * FROM officers WHERE YEAR(created) = '$currentYear' AND title='Culture'";
             $result = $conn->query($sql);
             $culture = [];
             
@@ -182,7 +201,7 @@ $currentYear = date('Y');
         <div class="officers">
             <?php
             require($toRoot.'includes/mysqli_connect.php');
-            $sql = "SELECT * FROM officers WHERE title='Fundraising'";
+            $sql = "SELECT * FROM officers WHERE YEAR(created) = '$currentYear' AND title='Fundraising'";
             $result = $conn->query($sql);
             $fundraising = [];
             
@@ -210,7 +229,7 @@ $currentYear = date('Y');
         <div class="officers">
             <?php
             require($toRoot.'includes/mysqli_connect.php');
-            $sql = "SELECT * FROM officers WHERE title='Historic'";
+            $sql = "SELECT * FROM officers WHERE YEAR(created) = '$currentYear' AND title='Historic'";
             $result = $conn->query($sql);
             $historic = [];
             
@@ -238,7 +257,7 @@ $currentYear = date('Y');
         <div class="officers">
             <?php
             require($toRoot.'includes/mysqli_connect.php');
-            $sql = "SELECT * FROM officers WHERE title='Publicity'";
+            $sql = "SELECT * FROM officers WHERE YEAR(created) = '$currentYear' AND title='Publicity'";
             $result = $conn->query($sql);
             $publicity = [];
             
@@ -266,7 +285,7 @@ $currentYear = date('Y');
         <div class="officers">
             <?php
             require($toRoot.'includes/mysqli_connect.php');
-            $sql = "SELECT * FROM officers WHERE title='Social'";
+            $sql = "SELECT * FROM officers WHERE YEAR(created) = '$currentYear' AND title='Social'";
             $result = $conn->query($sql);
             $social = [];
             
@@ -294,7 +313,7 @@ $currentYear = date('Y');
         <div class="officers">
             <?php
             require($toRoot.'includes/mysqli_connect.php');
-            $sql = "SELECT * FROM officers WHERE title='Sports'";
+            $sql = "SELECT * FROM officers WHERE YEAR(created) = '$currentYear' AND title='Sports'";
             $result = $conn->query($sql);
             $sports = [];
             
@@ -322,7 +341,7 @@ $currentYear = date('Y');
         <div class="officers">
             <?php
             require($toRoot.'includes/mysqli_connect.php');
-            $sql = "SELECT * FROM officers WHERE title='Head Advisor'";
+            $sql = "SELECT * FROM officers WHERE YEAR(created) = '$currentYear' AND title='Head Advisor'";
             $result = $conn->query($sql);
             $ha = [];
             
@@ -350,7 +369,7 @@ $currentYear = date('Y');
         <div class="officers">
             <?php
             require($toRoot.'includes/mysqli_connect.php');
-            $sql = "SELECT * FROM officers WHERE title='Advisor'";
+            $sql = "SELECT * FROM officers WHERE YEAR(created) = '$currentYear' AND title='Advisor'";
             $result = $conn->query($sql);
             $advisor = [];
             

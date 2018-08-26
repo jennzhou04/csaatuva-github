@@ -294,3 +294,10 @@
         transition: filter .3s ease-in-out;
     }
 
+.select-year {
+    display: flex;
+}
+    .select-year > * {
+        margin-right: 1em;
+    }
+

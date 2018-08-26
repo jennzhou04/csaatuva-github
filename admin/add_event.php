@@ -2,26 +2,7 @@
 $toRoot = '../';
 $currentPage = 'add-event';
 include($toRoot.'_header_admin.php'); 
-require($toRoot.'includes/mysqli_connect.php');
-$count = 0;
-$countpast = 0;
-$sql = "SELECT * FROM events Order By date";
-$result = $conn->query($sql);
-$events = [];
 
-if ($result->num_rows > 0) {
-    // output data of each row
-    
-    while($row = $result->fetch_assoc()) {
-        array_push($events, $row);
-    }
-} else {
-    echo "0 results";
-}
-
-$conn->close();
-
-ChromePhp::log('why');
 ?>
 <div class="wrapper">
     <div class="container">

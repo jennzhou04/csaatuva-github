@@ -17,7 +17,7 @@ if ($result->num_rows > 0) {
     // output data of each row
     $officer = $result->fetch_assoc();
 } else {
-    echo "0 results";
+    // echo "0 results";
 }
 $conn->close();
 
@@ -73,9 +73,6 @@ $conn->close();
                                 echo "0 results";
                             }
                             $conn->close();
-
-                            ChromePhp::log($roles);
-
                             foreach($roles as $role) {
                                 echo '<option ';
                                 if($role['title'] == $officer['title']) {
@@ -94,6 +91,7 @@ $conn->close();
                                 echo '<img src="'.$toRoot.$officer['image'].'" alt="'.$officer['name'].'" name="officer-image"/>';
                                 }
                             ?>
+                        </div>
                     </div>
                     <div class="12u$">
                         Upload New Profile Picture
@@ -104,7 +102,6 @@ $conn->close();
                             <li><input type="submit" value="Submit" class="special" name="editOfficer_btn"/></li>
                             <li><input type="reset" value="Reset" /></li>
                         </ul>
-                        </div>
                     </div>
                 </div>
             </form>

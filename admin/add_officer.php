@@ -2,24 +2,6 @@
 $toRoot = '../';
 $currentPage = 'add-officer';
 include($toRoot.'_header_admin.php'); 
-require($toRoot.'includes/mysqli_connect.php');
-$officer = [];
-$officerId = 0;
-if(isset($_GET['officer'])) {
-    $officerId = $_GET['officer'];
-} else {
-    $officerId = null;
-}
-
-$sql = "SELECT * FROM officers WHERE id = '$officerId'";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    // output data of each row
-    $officer = $result->fetch_assoc();
-} else {
-    echo "0 results";
-}
-$conn->close();
 
 ?>
 
@@ -38,6 +20,7 @@ $conn->close();
                         <label for="selectYear">Year</label>
                         <div class="select-wrapper" name="selectYear">
                             <select name="year" id="year">
+                                <option selected disabled>Select A Year</option>
                                 <option value="1st Year">1st Year</option>
                                 <option value="2nd Year">2nd Year</option>
                                 <option value="3rd Year">3rd Year</option>
@@ -74,8 +57,6 @@ $conn->close();
                             }
                             $conn->close();
 
-                            ChromePhp::log($roles);
-
                             foreach($roles as $role) {
                                 echo '<option ';
                                 echo' value="'.$role['title'].'">'.$role['title'].'</option>';
@@ -93,7 +74,7 @@ $conn->close();
                             <li><input type="submit" value="Submit" class="special" name="editOfficer_btn"/></li>
                             <li><input type="reset" value="Reset" /></li>
                         </ul>
-                        </div>
+                        
                     </div>
                 </div>
             </form>
