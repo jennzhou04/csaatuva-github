@@ -131,12 +131,25 @@ include($toRoot.'_header_admin.php');
                 array_push($errors, "Position is required");
             }
             
-
+            $exec_titles=['President', 'Vice President', 'Treasurer', 'Secretary'];
+            $advisor_titles=['Advisor', 'Head Advisor'];
             // attempt login if no errors on form
             if (count($errors) == 0) {
                 // $password = md5($password);
-                $query = "INSERT INTO officers (name, year, major, description, image, title, created) 
-                VALUES ('$name', '$year', '$major', '$description', '$image', '$title', TIMESTAMP('$created'))";
+                if(in_array($title, $exec_titles)) {
+                    $isExec = true;
+                } else {
+                    $isExec = false;
+                }
+
+                if(in_array($title, $advisor_titles)) {
+                    $isAd = true;
+                } else {
+                    $isAd = false;
+                }
+                
+                $query = "INSERT INTO officers (name, year, major, description, image, title, created, isExec, isAdvisor) 
+                VALUES ('$name', '$year', '$major', '$description', '$image', '$title', TIMESTAMP('$created'), '$isExec', '$isAd' )";
 
                 if ($db->query($query) === TRUE) {
                     // echo "Updated event successfully";

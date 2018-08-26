@@ -2214,7 +2214,7 @@
 		display: flex;
 		margin: 0 10em;
 		flex-wrap: wrap;
-		justify-content: center;
+		justify-content: flex-start;
 	}
 	.officer-grid .officer {
 		display: inherit;
@@ -2262,9 +2262,11 @@
 				align-items: flex-end;
 				display: flex;
 				flex-direction: column;
+				text-align: right;
 			}		
 				.officer-grid .officer:nth-of-type(even) .content > * {
 					align-items: flex-start;
+					text-align: left;
 				}
 				.officer-grid .officer .content span {
 					font-style:italic;
@@ -2272,6 +2274,73 @@
 					font-weight:500;
 					text-transform:none;
 				}
+				.officer .circle-crop > img:hover, .officer .circle-crop > img:active {
+					filter: none;
+				}
+				@media screen and (max-width: 1280px) {
+
+					.officer-grid {
+						margin: 0 8em;
+					}
+
+					.officer-grid .officer {
+						margin-bottom: 2em;
+					}
+		
+				}
+		
+				@media screen and (max-width: 980px) {
+		
+					.officer-grid {
+						margin: 0 6em;
+					}
+
+					.officer .circle-crop {
+						width: 10em;
+						height: 10em;
+					}
+		
+				}
+		
+				@media screen and (max-width: 736px) {
+		
+					.officer-grid .officer {
+						flex-basis: 100% !important;
+						flex-direction: column !important;
+						padding: 0 !important;
+						align-content: center !important;
+					}
+
+					.officer-grid .content {
+						margin-top: 1em;
+
+					}
+
+					.officer-grid .content > * {
+						text-align: center !important;
+						align-items: center !important;
+					}
+		
+				}
+		
+				@media screen and (max-width: 480px) {
+		
+					.officer-grid {
+						margin: 0 3em;
+					}
+
+					/* .officer-grid .officer {
+						flex-basis: 100% !important;
+					} */
+
+					.officer .circle-crop {
+						width: 6em;
+						height: 6em;
+					}
+		
+				}
+	
+			
 		
 /* Feature */
 
@@ -2388,8 +2457,12 @@
 /* Advisor */
 
 	.advisor-grid {
+
 		position: relative;
-		
+		margin: 0 10em;
+		display: flex;
+		flex-wrap: wrap;
+
 	}
 
 		.advisor-grid:after {
@@ -2399,16 +2472,23 @@
 		}
 
 		.advisor-grid .advisor {
-			display: inline-block;
+
+			display: inherit;
 			float: left;
 			margin-bottom: 3em;
 			width: 25%;
 			text-align: center;
+			flex-direction: column;
+			flex-basis: 25%;
+			flex-grow: 1;
+			flex-shrink: 0;
+			align-items: center;
+		
 		}
 
 			.advisor-grid .advisor .content {
-				width: 50%;
-				display: inline;
+				/* width: 50%;
+				display: inline; */
 			}
 
 			.advisor-grid .advisor .image {
@@ -2420,9 +2500,13 @@
 					max-width: 100%;
 				}
 			.advisor-grid .advisor > .content, .advisor-grid .advisor > .image {
-				float: none;
+				/* float: none;
 				margin-right: 5%;
-				text-align: center;
+				text-align: center; */
+			}
+
+			.advisor .circle-crop > img:hover {
+				filter:none;
 			}
 
 
@@ -2438,13 +2522,17 @@
 
 		@media screen and (max-width: 980px) {
 
+			.advisor-grid {
+				margin: 0 6em;
+			}
+
 			.advisor-grid .advisor {
-				display: block;
 				width: 50%;
+				flex-basis: 50%;
 			}
 
 				.advisor-grid .advisor .content {
-					width: 45%;
+					/* width: 45%; */
 				}
 
 				.advisor-grid .advisor .image {
@@ -2455,6 +2543,10 @@
 		}
 
 		@media screen and (max-width: 736px) {
+
+			.advisor-grid {
+				margin: 0 5em;
+			}
 
 			.advisor-grid .advisor {
 				margin-bottom: 1em;

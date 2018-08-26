@@ -262,6 +262,8 @@
 .officer-display .delete:hover, .officer-display .delete:active {
     color: rgb(163, 3, 3);
 }
+
+/* Circle-Crop */
 .circle-crop {
     position: relative;
     width: 8em;

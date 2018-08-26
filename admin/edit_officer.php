@@ -159,12 +159,26 @@ $conn->close();
                 array_push($errors, "Position is required");
             }
             
-
+            $exec_titles=['President', 'Vice President', 'Treasurer', 'Secretary'];
+            $advisor_titles=['Advisor', 'Head Advisor'];
             // attempt login if no errors on form
             if (count($errors) == 0) {
                 // $password = md5($password);
+
+                if(in_array($title, $exec_titles)) {
+                    $isExec = true;
+                } else {
+                    $isExec = false;
+                }
+
+                if(in_array($title, $advisor_titles)) {
+                    $isAd = true;
+                } else {
+                    $isAd = false;
+                }
+                
                 $query = "UPDATE officers SET name = '$name', year = '$year', major = '$major', title = '$title',
-                description = '$description', image = '$image' WHERE id=$officerId";
+                description = '$description', image = '$image', isExec = '$isExec', isAdvisor = '$isAd' WHERE id=$officerId";
 
                 if ($db->query($query) === TRUE) {
                     // echo "Updated event successfully";
