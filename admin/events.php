@@ -6,7 +6,7 @@ include($toRoot.'_header_admin.php');
 require($toRoot.'includes/mysqli_connect.php');
 $count = 0;
 $countpast = 0;
-$sql = "SELECT * FROM events Order By date";
+$sql = "SELECT * FROM events WHERE date >= DATE_SUB(NOW(),INTERVAL 1 YEAR) Order By date DESC";
 $result = $conn->query($sql);
 $events = [];
 
@@ -52,7 +52,7 @@ $conn->close();
                         echo '<td>'.$event['time'].'</td>';
                         echo '<td>'.$event['to_time'].'</td>';
                         echo '<td>'.$event['location'].'</td>';
-                        echo '<td><button id="deleteEvent" value="'.$event['id'].'"><i class="fas fa-minus-circle"></i></button></td>';
+                        echo '<td><button id="deleteEvent" value="'.$event['id'].'"><i class="fas fa-times-circle"></i></button></td>';
                         echo '</tr>';
                     }
                 ?>

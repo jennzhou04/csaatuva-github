@@ -226,3 +226,71 @@
 #deleteEvent:hover {
     color: rgb(163, 3, 3) !important;
 }
+
+.event-preview {
+    width: 20em;
+}
+    .event-preview img {
+        width: inherit;
+    }
+
+/* Officer Admin */
+.officers {
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+    .officers .officer-display {
+        display: inherit;
+        flex-direction: column;
+        margin: 0 0 3em 0;
+    }
+    .officers .officer-display > * {
+        margin: 0;
+    }
+    .name {
+        font-size: .8em;
+    }
+    .officers .officer-display p {
+        font-size: .8em;
+    }
+    .officers .officer-display .delete-officer {
+        display: inherit;
+        margin-right: 2em;
+    }
+
+.officer-display .delete:hover, .officer-display .delete:active {
+    color: rgb(163, 3, 3);
+}
+.circle-crop {
+    position: relative;
+    width: 8em;
+    height: 8em;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 0 0 1em 0;
+    /* margin-right: 1em; */
+    background-color: #7B1500;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+
+}
+    .circle-crop > * {
+        width: 100%;
+        display: inline-block;
+        height: inherit;
+        border: none;
+    }
+    .circle-crop > img, .circle-crop span img {
+		width: 100% !important;
+		height: auto;
+    }
+    .circle-crop:hover, .circle-crop:active {
+        cursor: pointer;
+        filter: none;
+    }
+    .circle-crop > img:hover, .circle-crop > img:active {
+        filter: opacity(60%) grayscale(100%) brightness(1.5);
+        transition: filter .3s ease-in-out;
+    }
+
