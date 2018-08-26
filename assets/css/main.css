@@ -2329,10 +2329,6 @@
 						margin: 0 3em;
 					}
 
-					/* .officer-grid .officer {
-						flex-basis: 100% !important;
-					} */
-
 					.officer .circle-crop {
 						width: 6em;
 						height: 6em;
@@ -2557,17 +2553,16 @@
 
 		@media screen and (max-width: 480px) {
 
-			.advisor-grid .advisor .content,
-			.advisor-grid .advisor .image {
-				display: block;
-				margin-left: 0 !important;
-				margin-right: 0 !important;
-				text-align: center !important;
-				width: 100%;
+			.advisor-grid {
+				margin: 0 2em;
+			}
+			.advisor-grid .advisor .content {
+				display: none;
 			}
 
-			.advisor-grid .advisor .image {
-				margin-bottom: 1em;
+			.advisor-grid .advisor .circle-crop {
+				width: 5em;
+				height: 5em;
 			}
 
 		}
