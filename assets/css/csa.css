@@ -308,3 +308,10 @@
     left: 2em;
     top:2em;
 }
+
+span .small {
+    font-style:italic;
+    font-size: .8em;
+    font-weight:500;
+    text-transform:none;
+}
