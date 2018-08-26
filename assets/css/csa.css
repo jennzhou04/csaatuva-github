@@ -147,8 +147,12 @@
 
 /* Admin-Console */
 .admin-console {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
     .action {
         text-align: center;
@@ -161,6 +165,7 @@
         font-size: 1em;
         margin: 1em 0 0 0 ;
     }
+    
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -236,13 +241,19 @@
 
 /* Officer Admin */
 .officers {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     
 }
     .officers .officer-display {
         display: inherit;
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
         margin: 0 0 3em 0;
     }
     .officers .officer-display > * {
@@ -289,14 +300,22 @@
     }
     .circle-crop:hover, .circle-crop:active {
         cursor: pointer;
-        filter: none;
+        -webkit-filter: none;
+                filter: none;
     }
     .circle-crop > img:hover, .circle-crop > img:active {
-        filter: opacity(60%) grayscale(100%) brightness(1.5);
+        -webkit-filter: opacity(60%) grayscale(100%) brightness(1.5);
+                filter: opacity(60%) grayscale(100%) brightness(1.5);
+        -webkit-transition: -webkit-filter .3s ease-in-out;
+        transition: -webkit-filter .3s ease-in-out;
+        -o-transition: filter .3s ease-in-out;
         transition: filter .3s ease-in-out;
+        transition: filter .3s ease-in-out, -webkit-filter .3s ease-in-out;
     }
 
 .select-year {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
     .select-year > * {
