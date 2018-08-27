@@ -11,26 +11,32 @@ include($toRoot.'_header_admin.php');
 		<form id="addEvent" method="post" enctype="multipart/form-data">
 		<?php echo display_error(); ?>
 			<div class="row uniform 50%">
-				<div class="12u$">
-					<input type="text" name="name" id="name" value="" placeholder="Event Name"/>
+            <div class="12u$">
+                    <label for="name">Event Name</label>
+                    <input type="text" name="name" id="name" value="" placeholder="Event Name" />
                 </div>
                 <div class="12u$">
-                    <input type="date" name="date" id="date" value="" placeholder="Event Date"/>
-                    <!-- <input type="date" name="to-date" id="to-date" value="" />
-                    <input type="checkbox" name="add-to-date" id="add-to-date">
-                    <label for="add-to-date">Add Date Range</label> -->
+                    <label for="date">Event Date</label>
+					<input type="date" name="date" id="date" value="" placeholder="Event Date" />
                 </div>
-                <div class="12u$">
-                    <input type="time" name="time" id="time" value="" placeholder="Event Time"/>
+                <div class="2u 12u$(small)">
+                    <label for="time">Start Time</label>
+                    <input type="time" name="time" id="time" value="" placeholder="Event Time" />
+                </div>
+                <div class="2u 12u$(small)">
+                    <label for="to-time">End Time</label>
                     <input type="time" name="to-time" id="to-time" value="" />
                 </div>
                 <div class="12u$">
+                    <label for="location">Event Location</label>
                     <input type="text" name="location" id="location" value="" placeholder="Event Location"/>
                 </div>
 				<div class="12u$">
+                    <label for="info">Event Description</label>
 					<textarea name="info" id="info" placeholder="Enter your event description here" rows="6"></textarea>
                 </div>
                 <div class="12u$">
+                    <label for="fb-link">Link to Facebook Event</label>
                     <input type="text" name="fb-link" id="fb-link" value="" placeholder="Facebook Event Link" />
                 </div>
                 <div class="12u$">

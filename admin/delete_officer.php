@@ -10,7 +10,6 @@ if(isset($_POST['id'])) {
 } else {
     $officerId = null;
 }
-ChromePhp::log($officerId);
 $sql = "DELETE FROM officers WHERE id = '$officerId'";
 $result = $db->query($sql);
 if ($db->query($sql) === TRUE) {

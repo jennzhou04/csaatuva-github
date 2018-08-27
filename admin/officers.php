@@ -3,7 +3,6 @@ $toRoot = '../';
 $currentPage = 'officers';
 include($toRoot.'_header_admin.php');
 
-// ChromePhp::log($_POST['year']);
 if(isset($_POST['year'])) {
     $currentYear = $_POST['year'];
 } else {
@@ -88,7 +87,6 @@ if(isset($_POST['year'])) {
         <!-- <label for="exec">Exec</label> -->
         <div class="officers">
             <?php
-            // include('../chromephp/ChromePhp.php');
             require($toRoot.'includes/mysqli_connect.php');
             $sql = "SELECT * FROM officers WHERE YEAR(created) = '$currentYear' 
             AND (title='President' OR title='Vice President' OR title='Secretary' OR title='Treasurer')";

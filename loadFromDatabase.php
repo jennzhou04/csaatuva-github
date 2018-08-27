@@ -1,6 +1,5 @@
 <?php 
 session_start();
-include('chromephp/ChromePhp.php');
 
 // connect to database
 $db = mysqli_connect('localhost', 'root', '', 'csaatuva_csa');
@@ -134,7 +133,6 @@ function login(){
 
 		$query = "SELECT * FROM users WHERE username='$username' AND password='$password' LIMIT 1";
         $results = mysqli_query($db, $query);
-        ChromePhp::log($username, $results);
 
 		if (mysqli_num_rows($results) == 1) { // user found
 			// check if user is admin or user
@@ -143,7 +141,7 @@ function login(){
 
 				$_SESSION['user'] = $logged_in_user;
 				$_SESSION['success']  = "";
-				header('location: admin/index.php');		  
+				header('location: /admin/index.php');		  
 			}else{
 				$_SESSION['user'] = $logged_in_user;
 				$_SESSION['success']  = "";

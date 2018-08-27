@@ -10,7 +10,6 @@ if(isset($_POST['id'])) {
 } else {
     $eventId = null;
 }
-ChromePhp::log($eventId);
 $sql = "DELETE FROM events WHERE id = '$eventId'";
 $result = $db->query($sql);
 if ($db->query($sql) === TRUE) {
