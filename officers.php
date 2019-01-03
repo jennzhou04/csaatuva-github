@@ -5,367 +5,349 @@
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
 <?php
-require('includes/mysqli_connect.php');
-$count = 0;
-$sql = "SELECT * FROM 1718officers";
-$result = mysqli_query($conn, $sql)
-or die("Error: ".mysqli_error($conn));
+$toRoot = './';
+$currentPage = 'officers';
+include($toRoot.'_header.php');
 
-while ($row=mysqli_fetch_array($result)) {
-	$id = $row['id']; 
-	$name = $row['name']; 
-	$year = $row['year'];
-	$major = $row['major']; 
-	$description = $row['description'];
-	$image = $row['image']; 
-	$title = $row['title'];
-	if ($id > 0) {
-		$data[$count] = array($name, $year, $major, $description, $image, $title);
-		$count = $count + 1;
+$resourceCall = "SELECT * FROM resources WHERE tags LIKE '%$currentPage%'";
+$result = $db->query($resourceCall);
+$resources = array();
+
+if ($result->num_rows > 0) {
+	// output data of each row
+	// $roles = $result->fetch_assoc();
+	while($row = $result->fetch_assoc()) {
+		$resources[$row['Name']] = $row;
 	}
+} else {
+	echo "0 results";
 }
 
+$db->close();
 ?>
-<html>
-	<head>
-		<title>Officers</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body>
-	<link rel="shortcut icon" href="knot.png" >
-		<!-- Header -->
-			<header id="header">
-				<?php require('navigation.php'); ?>
-			</header>
 
-			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+<?php
+    echo '<style>#officer { background-image: url("'.$toRoot.'images/overlay.png"), url("'.$toRoot.$resources['Officers Banner']['Link'].'")}</style>';
+?>
 
 		<!-- Main -->
 			<section id="officer">
-				<h2>Officer Board</h2>
-				<p>2017 - 2018</p>
-			</section>
-			<section id="three" class="wrapper style1">
-				<div class="container">
-					<div id="replace"> </div>
+				<div class="title">
+					<h1>Officer Board</h1>
+					<!-- <h1 class="thin">Association</h1> -->
+				
+				<?php
+				require('includes/mysqli_connect.php');
+				$getYear = "SELECT value FROM settings WHERE setting = 'year'";
+				$yearResult = $conn->query($getYear);
+				$date;
+			
+				if ($yearResult->num_rows > 0) {
+					while($row = $yearResult->fetch_assoc()) {
+						$date = $row['value'];
+					}
+				}
+
+				$conn->close();
+
+				echo '<p class="thin">'.$date.'</p>';
+				?>
 				</div>
+				<!-- <p>2017 - 2018</p> -->
 			</section>
-			<script>
-				var text = "will this work";
-				var data = <?php echo json_encode($data);?>;
-				var htmlbuilder = "";
-				
-				//EXEC BOARD
-				htmlbuilder+= '<header class="center"><p>Executive Board</p></header><div class="feature-grid">';
-				
-				for(var i = 0; i < data.length; i++) {
-					if(data[i][5] == "President") {
-						htmlbuilder += '<div class="feature">';
-						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
-						htmlbuilder += '<div class="content"><header><h4>';
-						htmlbuilder +=  data[i][0];
-						htmlbuilder += '<span style="font-style:italic;font-size: .8em;font-weight:500;text-transform:none;"> - ';
-						htmlbuilder += data[i][1];
-						htmlbuilder += '</span></h4><p>';
-						htmlbuilder +=  data[i][5];
-						htmlbuilder += '</p><p>';
-						htmlbuilder +=  data[i][2];
-						htmlbuilder += '</p></header>';
-						htmlbuilder	+= '<p>' + data[i][3] + '</o>';
-						htmlbuilder+= '</div>';
-						htmlbuilder+= '</div>';
+			<section id="officer info" class="wrapper style1">				
+			<?php 
+			require('includes/mysqli_connect.php');
+			$now = date('Y').'-01-01';
+			$count = 0;
+			$sql = "SELECT * FROM officers WHERE isExec = true
+			AND officer_year = '$date'";
+			$result = $conn->query($sql);
+			$exec = [];
+			
+			if ($result->num_rows > 0) {
+				while($row = $result->fetch_assoc()) {
+					if($row['title'] == 'President') {
+                        $p = $row;
+                    } 
+                    if($row['title'] == 'Vice President') {
+                        $vp = $row;
+                    }
+                    if($row['title'] == 'Treasurer') {
+                        $t = $row;
+                    }
+                    if($row['title'] == 'Secretary') {
+                        $s = $row;
+                    }
+					// array_push($officers, $row);
+				}
+			} else {
+				// echo "0 results";
+			}
+			$conn->close();
+			if(!empty($p)) {
+                array_push($exec, $p);
+            }
+            if(!empty($vp)) {
+                array_push($exec, $vp);
+            }
+            if(!empty($t)) {
+                array_push($exec, $t);
+            }
+            if(!empty($s)) {
+                array_push($exec, $s);
+            }
+
+			echo '<header class="center"><p>Executive Board</p></header><div class="officer-grid">';
+			foreach($exec as $officer) {
+				echo '<div class="officer"><div class="circle-crop">';
+				list($width, $height, $type, $attr) = getimagesize($toRoot.$officer['image']);
+                if($width > $height) {
+					$shiftL = (($width - $height) / 2) / $width;
+					$percent = '-' . round($shiftL * 100 ) . '%';
+                    echo '<img class="wide" style="position:inherit; left:'.$percent.';" src="'.$toRoot.$officer['image'].'">';
+                } else {
+					echo '<img class="tall" src="'.$officer['image'].'">';
+				}
+				echo '</div><div class="content"><header><h4>'.$officer['name'].'<span class="small"> - '.$officer['year'].'</span></h4>';
+				echo '<p>'.$officer['title'].'</p><p>'.$officer['major'].'</p></header>';
+				echo '<p>'.$officer['description'].'</p></div></div>';
+			}
+			echo '</div>';
+			?>
+
+			<?php
+			require('includes/mysqli_connect.php');
+			$now = date('Y').'-01-01';
+			$count = 0;
+			$sql = "SELECT * FROM officers WHERE isExec = false AND isAdvisor = false
+			AND officer_year = '$date'
+			ORDER BY title ASC";
+			$result = $conn->query($sql);
+			$community = [];
+			$culture = [];
+			$fundraising = [];
+			$historic = [];
+			$publicity = [];
+			$social = [];
+			$sports = [];
+			
+			if ($result->num_rows > 0) {
+				while($row = $result->fetch_assoc()) {
+					if($row['title'] == 'Community') {
+						array_push($community, $row);
+					}
+					if($row['title'] == 'Culture') {
+						array_push($culture, $row);
+					}
+					if($row['title'] == 'Fundraising') {
+						array_push($fundraising, $row);
+					}
+					if($row['title'] == 'Historic') {
+						array_push($historic, $row);
+					}
+					if($row['title'] == 'Publicity') {
+						array_push($publicity, $row);
+					}
+					if($row['title'] == 'Social') {
+						array_push($social, $row);
+					}
+					if($row['title'] == 'Sports') {
+						array_push($sports, $row);
 					}
 					
 				}
-				for(var i = 0; i < data.length; i++) {
-					if(data[i][5] == "Vice President") {
-						htmlbuilder += '<div class="feature">';
-						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
-						htmlbuilder += '<div class="content"><header><h4>';
-						htmlbuilder +=  data[i][0];
-						htmlbuilder += '<span style="font-style:italic;font-size: .8em;font-weight:500;text-transform:none;"> - ';
-						htmlbuilder += data[i][1];
-						htmlbuilder += '</span></h4><p>';
-						htmlbuilder +=  data[i][5];
-						htmlbuilder += '</p><p>';
-						htmlbuilder +=  data[i][2];
-						htmlbuilder += '</p></header>';
-						htmlbuilder	+= '<p>' + data[i][3] + '</o>';
-						htmlbuilder+= '</div>';
-						htmlbuilder+= '</div>';
-					}
-					
+			} else {
+				// echo "0 results";
+			}
+			$conn->close();
+
+			echo '<header class="center"><p>Community</p></header><div class="officer-grid">';
+			foreach($community as $officer) {
+				echo '<div class="officer"><div class="circle-crop">';
+				list($width, $height, $type, $attr) = getimagesize($toRoot.$officer['image']);
+                if($width > $height) {
+					$shiftL = (($width - $height) / 2) / $width;
+					$percent = '-' . round($shiftL * 100 ) . '%';
+                    echo '<img class="wide" style="position:inherit; left:'.$percent.';" src="'.$toRoot.$officer['image'].'">';
+                } else {
+					echo '<img class="tall" src="'.$officer['image'].'">';
 				}
-				
-				for(var i = 0; i < data.length; i++) {
-					if(data[i][5] == "Secretary") {
-						htmlbuilder += '<div class="feature">';
-						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
-						htmlbuilder += '<div class="content"><header><h4>';
-						htmlbuilder +=  data[i][0];
-						htmlbuilder += '<span style="font-style:italic;font-size: .8em;font-weight:500;text-transform:none;"> - ';
-						htmlbuilder += data[i][1];
-						htmlbuilder += '</span></h4><p>';
-						htmlbuilder +=  data[i][5];
-						htmlbuilder += '</p><p>';
-						htmlbuilder +=  data[i][2];
-						htmlbuilder += '</p></header>';
-						htmlbuilder	+= '<p>' + data[i][3] + '</o>';
-						htmlbuilder+= '</div>';
-						htmlbuilder+= '</div>';
-					}
-					
+				echo '</div><div class="content"><header><h4>'.$officer['name'].'<span class="small"> - '.$officer['year'].'</span></h4>';
+				echo '<p>'.$officer['title'].'</p><p>'.$officer['major'].'</p></header>';
+				echo '<p>'.$officer['description'].'</p></div></div>';
+			}
+			echo '</div>';
+
+			echo '<header class="center"><p>Culture</p></header><div class="officer-grid">';
+			foreach($culture as $officer) {
+				echo '<div class="officer"><div class="circle-crop">';
+				list($width, $height, $type, $attr) = getimagesize($toRoot.$officer['image']);
+                if($width > $height) {
+					$shiftL = (($width - $height) / 2) / $width;
+					$percent = '-' . round($shiftL * 100 ) . '%';
+                    echo '<img class="wide" style="position:inherit; left:'.$percent.';" src="'.$toRoot.$officer['image'].'">';
+                } else {
+					echo '<img class="tall" src="'.$officer['image'].'">';
 				}
-				
-				for(var i = 0; i < data.length; i++) {
-					if(data[i][5] == "Treasurer") {
-						htmlbuilder += '<div class="feature">';
-						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
-						htmlbuilder += '<div class="content"><header><h4>';
-						htmlbuilder +=  data[i][0];
-						htmlbuilder += '<span style="font-style:italic;font-size: .8em;font-weight:500;text-transform:none;"> - ';
-						htmlbuilder += data[i][1];
-						htmlbuilder += '</span></h4><p>';
-						htmlbuilder +=  data[i][5];
-						htmlbuilder += '</p><p>';
-						htmlbuilder +=  data[i][2];
-						htmlbuilder += '</p></header>';
-						htmlbuilder	+= '<p>' + data[i][3] + '</o>';
-						htmlbuilder+= '</div>';
-						htmlbuilder+= '</div>';
-					}
-					
+				echo '</div><div class="content"><header><h4>'.$officer['name'].'<span class="small"> - '.$officer['year'].'</span></h4>';
+				echo '<p>'.$officer['title'].'</p><p>'.$officer['major'].'</p></header>';
+				echo '<p>'.$officer['description'].'</p></div></div>';
+			}
+			echo '</div>';
+
+			echo '<header class="center"><p>Fundraising</p></header><div class="officer-grid">';
+			foreach($fundraising as $officer) {
+				echo '<div class="officer"><div class="circle-crop">';
+				list($width, $height, $type, $attr) = getimagesize($toRoot.$officer['image']);
+                if($width > $height) {
+					$shiftL = (($width - $height) / 2) / $width;
+					$percent = '-' . round($shiftL * 100 ) . '%';
+                    echo '<img class="wide" style="position:inherit; left:'.$percent.';" src="'.$toRoot.$officer['image'].'">';
+                } else {
+					echo '<img class="tall" src="'.$officer['image'].'">';
 				}
-				htmlbuilder+= '</div>';
-				
-				//OFFICER BOARD
-				
-				//Community
-				htmlbuilder+= '<header class="center"><p>Community</p></header><div class="feature-grid">';
-				for(var i = 0; i < data.length; i++) {
-					var count = 0;
-					if(data[i][5] == "Community") {
-						htmlbuilder += '<div class="feature">';
-						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
-						htmlbuilder += '<div class="content"><header><h4>';
-						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
-						htmlbuilder +=  data[i][1];
-						htmlbuilder += '</p><p>';	
-						htmlbuilder +=  data[i][2];
-						htmlbuilder += '</p></header>';
-						htmlbuilder	+= '<p>' + data[i][3] + '</o>';
-						htmlbuilder += '</div>';
-						htmlbuilder += '</div>';
-						count ++;
-					}
-					
+				echo '</div><div class="content"><header><h4>'.$officer['name'].'<span class="small"> - '.$officer['year'].'</span></h4>';
+				echo '<p>'.$officer['title'].'</p><p>'.$officer['major'].'</p></header>';
+				echo '<p>'.$officer['description'].'</p></div></div>';
+			}
+			echo '</div>';
+
+			echo '<header class="center"><p>Historic</p></header><div class="officer-grid">';
+			foreach($historic as $officer) {
+				echo '<div class="officer"><div class="circle-crop">';
+				list($width, $height, $type, $attr) = getimagesize($toRoot.$officer['image']);
+                if($width > $height) {
+					$shiftL = (($width - $height) / 2) / $width;
+					$percent = '-' . round($shiftL * 100 ) . '%';
+                    echo '<img class="wide" style="position:inherit; left:'.$percent.';" src="'.$toRoot.$officer['image'].'">';
+                } else {
+					echo '<img class="tall" src="'.$officer['image'].'">';
 				}
-				
-				htmlbuilder+= '</div>';
-				
-				//Culture
-				htmlbuilder+= '<header class="center"><p>Culture</p></header><div class="feature-grid">';
-				for(var i = 0; i < data.length; i++) {
-					if(data[i][5] == "Culture") {
-						htmlbuilder += '<div class="feature">';
-						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
-						htmlbuilder += '<div class="content"><header><h4>';
-						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
-						htmlbuilder +=  data[i][1];
-						htmlbuilder += '</p><p>';
-						htmlbuilder +=  data[i][2];
-						htmlbuilder += '</p></header>';
-						htmlbuilder	+= '<p>' + data[i][3] + '</o>';
-						htmlbuilder+= '</div>';
-						htmlbuilder+= '</div>';
-					}
-					
+				echo '</div><div class="content"><header><h4>'.$officer['name'].'<span class="small"> - '.$officer['year'].'</span></h4>';
+				echo '<p>'.$officer['title'].'</p><p>'.$officer['major'].'</p></header>';
+				echo '<p>'.$officer['description'].'</p></div></div>';
+			}
+			echo '</div>';
+			
+			echo '<header class="center"><p>Publicity</p></header><div class="officer-grid">';
+			foreach($publicity as $officer) {
+				echo '<div class="officer"><div class="circle-crop">';
+				list($width, $height, $type, $attr) = getimagesize($toRoot.$officer['image']);
+                if($width > $height) {
+					$shiftL = (($width - $height) / 2) / $width;
+					$percent = '-' . round($shiftL * 100 ) . '%';
+                    echo '<img class="wide" style="position:inherit; left:'.$percent.';" src="'.$toRoot.$officer['image'].'">';
+                } else {
+					echo '<img class="tall" src="'.$officer['image'].'">';
 				}
-				
-				htmlbuilder+= '</div>';
-				
-				//Fundraising
-				htmlbuilder+= '<header class="center"><p>Fundraising</p></header><div class="feature-grid">';
-				for(var i = 0; i < data.length; i++) {
-					if(data[i][5] == "Fundraising") {
-						htmlbuilder += '<div class="feature">';
-						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
-						htmlbuilder += '<div class="content"><header><h4>';
-						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
-						htmlbuilder +=  data[i][1];
-						htmlbuilder += '</p><p>';
-						htmlbuilder +=  data[i][2];
-						htmlbuilder += '</p></header>';
-						htmlbuilder	+= '<p>' + data[i][3] + '</o>';
-						htmlbuilder+= '</div>';
-						htmlbuilder+= '</div>';
-					}
-					
+				echo '</div><div class="content"><header><h4>'.$officer['name'].'<span class="small"> - '.$officer['year'].'</span></h4>';
+				echo '<p>'.$officer['title'].'</p><p>'.$officer['major'].'</p></header>';
+				echo '<p>'.$officer['description'].'</p></div></div>';
+			}
+			echo '</div>';
+
+			echo '<header class="center"><p>Social</p></header><div class="officer-grid">';
+			foreach($social as $officer) {
+				echo '<div class="officer"><div class="circle-crop">';
+				list($width, $height, $type, $attr) = getimagesize($toRoot.$officer['image']);
+                if($width > $height) {
+					$shiftL = (($width - $height) / 2) / $width;
+					$percent = '-' . round($shiftL * 100 ) . '%';
+                    echo '<img class="wide" style="position:inherit; left:'.$percent.';" src="'.$toRoot.$officer['image'].'">';
+                } else {
+					echo '<img class="tall" src="'.$officer['image'].'">';
 				}
-				
-				htmlbuilder+= '</div>';
-				
-				//Historic
-				htmlbuilder+= '<header class="center"><p>Historic</p></header><div class="feature-grid">';
-				for(var i = 0; i < data.length; i++) {
-					if(data[i][5] == "Historic") {
-						htmlbuilder += '<div class="feature">';
-						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
-						htmlbuilder += '<div class="content"><header><h4>';
-						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
-						htmlbuilder +=  data[i][1];
-						htmlbuilder += '</p><p>';
-						htmlbuilder +=  data[i][2];
-						htmlbuilder += '</p></header>';
-						htmlbuilder	+= '<p>' + data[i][3] + '</o>';
-						htmlbuilder+= '</div>';
-						htmlbuilder+= '</div>';
-					}
-					
+				echo '</div><div class="content"><header><h4>'.$officer['name'].'<span class="small"> - '.$officer['year'].'</span></h4>';
+				echo '<p>'.$officer['title'].'</p><p>'.$officer['major'].'</p></header>';
+				echo '<p>'.$officer['description'].'</p></div></div>';
+			}
+			echo '</div>';
+
+			echo '<header class="center"><p>Sports</p></header><div class="officer-grid">';
+			foreach($sports as $officer) {
+				echo '<div class="officer"><div class="circle-crop">';
+				list($width, $height, $type, $attr) = getimagesize($toRoot.$officer['image']);
+                if($width > $height) {
+					$shiftL = (($width - $height) / 2) / $width;
+					$percent = '-' . round($shiftL * 100 ) . '%';
+                    echo '<img class="wide" style="position:inherit; left:'.$percent.';" src="'.$toRoot.$officer['image'].'">';
+                } else {
+					echo '<img class="tall" src="'.$officer['image'].'">';
 				}
-				
-				htmlbuilder+= '</div>';
-				
-				//Publicity
-				htmlbuilder+= '<header class="center"><p>Publicity</p></header><div class="feature-grid">';
-				for(var i = 0; i < data.length; i++) {
-					if(data[i][5] == "Publicity") {
-						htmlbuilder += '<div class="feature">';
-						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
-						htmlbuilder += '<div class="content"><header><h4>';
-						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
-						htmlbuilder +=  data[i][1];
-						htmlbuilder += '</p><p>';
-						htmlbuilder +=  data[i][2];
-						htmlbuilder += '</p></header>';
-						htmlbuilder	+= '<p>' + data[i][3] + '</o>';
-						htmlbuilder+= '</div>';
-						htmlbuilder+= '</div>';
-					}
-					
+				echo '</div><div class="content"><header><h4>'.$officer['name'].'<span class="small"> - '.$officer['year'].'</span></h4>';
+				echo '<p>'.$officer['title'].'</p><p>'.$officer['major'].'</p></header>';
+				echo '<p>'.$officer['description'].'</p></div></div>';
+			}
+			echo '</div>';
+			
+			?>
+
+			<?php 
+			require('includes/mysqli_connect.php');
+			$now = date('Y').'-01-01';
+			$count = 0;
+			$sql = "SELECT * FROM officers WHERE isAdvisor = true
+			AND officer_year = '$date'";
+			$result = $conn->query($sql);
+			$headAdvisor = [];
+			$advisor = [];
+			
+			if ($result->num_rows > 0) {
+				while($row = $result->fetch_assoc()) {
+					if($row['title'] == 'Head Advisor') {
+                        array_push($headAdvisor, $row);
+                    } 
+                    if($row['title'] == 'Advisor') {
+						array_push($advisor, $row);
+                    }
 				}
-				
-				htmlbuilder+= '</div>';
-				
-				//Social
-				htmlbuilder+= '<header class="center"><p>Social</p></header><div class="feature-grid">';
-				for(var i = 0; i < data.length; i++) {
-					if(data[i][5] == "Social") {
-						htmlbuilder += '<div class="feature">';
-						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
-						htmlbuilder += '<div class="content"><header><h4>';
-						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
-						htmlbuilder +=  data[i][1];
-						htmlbuilder += '</p><p>';
-						htmlbuilder +=  data[i][2];
-						htmlbuilder += '</p></header>';
-						htmlbuilder	+= '<p>' + data[i][3] + '</o>';
-						htmlbuilder+= '</div>';
-						htmlbuilder+= '</div>';
+			} else {
+				// echo "0 results";
+			}
+			$conn->close();
+			
+			if(count($headAdvisor) > 0) {
+				echo '<header class="center"><p>Head Advisors</p></header><div class="officer-grid">';
+			
+				foreach($headAdvisor as $officer) {
+					echo '<div class="officer"><div class="circle-crop">';
+					list($width, $height, $type, $attr) = getimagesize($toRoot.$officer['image']);
+					if($width > $height) {
+						$shiftL = (($width - $height) / 2) / $width;
+						$percent = '-' . round($shiftL * 100 ) . '%';
+						echo '<img class="wide" style="position:inherit; left:'.$percent.';" src="'.$toRoot.$officer['image'].'">';
+					} else {
+						echo '<img class="tall" src="'.$officer['image'].'">';
 					}
-					
+					echo '</div><div class="content"><header><h4>'.$officer['name'].'<span class="small"> - '.$officer['year'].'</span></h4>';
+					echo '<p>'.$officer['title'].'</p><p>'.$officer['major'].'</p></header>';
+					echo '<p>'.$officer['description'].'</p></div></div>';
 				}
-				
-				htmlbuilder+= '</div>';
-				
-				//Sports
-				htmlbuilder+= '<header class="center"><p>Sports</p></header><div class="feature-grid">';
-				for(var i = 0; i < data.length; i++) {
-					if(data[i][5] == "Sports") {
-						htmlbuilder += '<div class="feature">';
-						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
-						htmlbuilder += '<div class="content"><header><h4>';
-						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
-						htmlbuilder +=  data[i][1];
-						htmlbuilder += '</p><p>';
-						htmlbuilder +=  data[i][2];
-						htmlbuilder += '</p></header>';
-						htmlbuilder	+= '<p>' + data[i][3] + '</o>';
-						htmlbuilder+= '</div>';
-						htmlbuilder+= '</div>';
+				echo '</div>';
+			}
+			
+			if(count($advisor) > 0) {
+				echo '<header class="center"><p>Advisors</p></header><div class="advisor-grid">';
+				foreach($advisor as $officer) {
+					echo '<div class="officer"><div class="circle-crop">';
+					list($width, $height, $type, $attr) = getimagesize($toRoot.$officer['image']);
+					if($width > $height) {
+						$shiftL = (($width - $height) / 2) / $width;
+						$percent = '-' . round($shiftL * 100 ) . '%';
+						echo '<img class="wide" style="position:inherit; left:'.$percent.';" src="'.$toRoot.$officer['image'].'">';
+					} else {
+						echo '<img class="tall" src="'.$officer['image'].'">';
 					}
-					
+					echo '</div><div class="content"><header><h4>'.$officer['name'].'<span class="small"> - '.$officer['year'].'</span></h4>';
+					echo '<p>'.$officer['title'].'</p><p>'.$officer['major'].'</p></header>';
+					echo '<p>'.$officer['description'].'</p></div></div>';
 				}
-				
-				htmlbuilder+= '</div>';
-				
-				//Head Advisors
-				htmlbuilder+= '<header class="center"><p>Head Advisors</p></header><div class="feature-grid">';
-				for(var i = 0; i < data.length; i++) {
-					if(data[i][5] == "Head Advisor") {
-						htmlbuilder += '<div class="feature">';
-						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
-						htmlbuilder += '<div class="content"><header><h4>';
-						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
-						htmlbuilder +=  data[i][1];
-						htmlbuilder += '</p><p>';
-						htmlbuilder +=  data[i][2];
-						htmlbuilder += '</p></header>';
-						htmlbuilder	+= '<p>' + data[i][3] + '</o>';
-						htmlbuilder+= '</div>';
-						htmlbuilder+= '</div>';
-					}
-					
-				}
-				
-				htmlbuilder+= '</div>';
-				
-				//Advisors
-				htmlbuilder+= '<header class="center"><p>Advisors</p></header><div class="advisor-grid">';
-				for(var i = 0; i < data.length; i++) {
-					if(data[i][5] == "Advisor") {
-						htmlbuilder += '<div class="advisor">';
-						htmlbuilder += '<div class="image rounded"><img src="'+data[i][4]+'" alt="" /></div>';
-						htmlbuilder += '<div class="content"><header><h4>';
-						htmlbuilder +=  data[i][0];
-						htmlbuilder += '</h4><p>';
-						htmlbuilder +=  data[i][1];
-						htmlbuilder += '</p><p>';
-						htmlbuilder +=  data[i][2];
-						htmlbuilder += '</p></header>';
-						htmlbuilder	+= '<p>' + data[i][3] + '</o>';
-						htmlbuilder+= '</div>';
-						htmlbuilder+= '</div>';
-					}
-					
-				}
-				
-				htmlbuilder+= '</div>';
-				document.getElementById("replace").innerHTML = htmlbuilder;
-				
-			</script>
+				echo '</div>';
+			}
+			
+			?>
+			</section>
 
 		<!-- Footer -->
-			<footer id="footer">
-				<div class="container">
-					<ul class="icons">
-						<li><a href="#" class="icon fa-facebook"></a></li>
-						<li><a href="#" class="icon fa-twitter"></a></li>
-						<li><a href="#" class="icon fa-instagram"></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; Untitled</li>
-						<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
-						<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
-					</ul>
-				</div>
-			</footer>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
-</html>
+			<?php include('footer.php');?>
