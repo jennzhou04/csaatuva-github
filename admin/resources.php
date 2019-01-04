@@ -4,17 +4,32 @@ $currentPage = 'resources';
 include($toRoot.'_header_admin.php'); 
 
 require($toRoot.'includes/mysqli_connect.php');
+include($toRoot."chromephp/ChromePhp.php");
+
+$resources = array();
+
+if (isset($_POST['homepage_btn'])) {
+    // echo 'start';
+    ChromePhp::log(count($resources));
+    // prepareUpload($resources['Homepage Background']['Name']);
+    // unset($_POST['homepage_btn']);
+}
 
 $sql = "SELECT r.*, s.value location FROM resources r LEFT JOIN settings s ON r.Name = s.setting WHERE tags LIKE '%$currentPage%'";
 $result = $conn->query($sql);
-$resources = array();
+// $resources = array();
 
 if ($result->num_rows > 0) {
     // output data of each row
+    // ChromePhp::log("has results");
     
     while($row = $result->fetch_assoc()) {
-        $addLink = 
+        // $addLink = 
         $resources[$row['Name']] = $row;
+        // ChromePhp:: log($row['Link']);
+        if($row['Name'] == 'Homepage Background') {
+            ChromePhp::log($row['Link']);
+        }
         // array_push($resources, $row);
     }
 } else {
@@ -22,6 +37,9 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
+
+
+
 ?>
 
 <div class="wrapper">
@@ -155,13 +173,17 @@ $conn->close();
             </div>
         </div>
 
-         <?php
+        <?php
+        // include($toRoot."chromephp/ChromePhp.php");
+
         $editSuccess;
         $uploadSuccess;
 
         // Homepage
         if (isset($_POST['homepage_btn'])) {
+            // echo 'start';
             prepareUpload($resources['Homepage Background']['Name']);
+            // unset($_POST['homepage_btn']);
         }
 
         // About

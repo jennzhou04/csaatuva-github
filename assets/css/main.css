@@ -2331,6 +2331,7 @@
 				.officer-grid .content {
 					margin-top: 1em;
 					font-size: 1em;
+					padding: 0 5em;
 				}
 
 				.officer-grid .content > * {
@@ -2353,6 +2354,10 @@
 				.officer .circle-crop {
 					width: 10em;
 					height: 10em;
+				}
+
+				.officer-grid .content {
+					padding: 0;
 				}
 	
 			}
@@ -2396,6 +2401,10 @@
 				.officer .circle-crop {
 					width: 6em;
 					height: 6em;
+				}
+
+				.officer-grid .content {
+					padding: 0 5em;
 				}
 	
 			}
